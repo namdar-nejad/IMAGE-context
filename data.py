@@ -89,14 +89,14 @@ def go(dir_=FILE_DIR):
         print(f"{ind}: {file} {validateJSON(file)}")
         
         if validateJSON(file):
-            name_ = f'image{ind}.jpg'
+            name_ = f'image{ind}'
             json_ = get_json(file)
             html_ = get_img_html(json_['graphic'])
             txt = get_alt(json_)
             
             if len(txt) > 5:
                 captions[name_] = txt
-                save_pic(html_, name_)
+                save_pic(html_, name_+".jpg")
     
     with open(f"{DATA_DIR}/captions.json", "w") as outfile:
         json.dump(captions, outfile)

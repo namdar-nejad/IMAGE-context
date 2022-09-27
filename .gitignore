@@ -1,2 +1,5 @@
 collected_data/images/*
 collected_data/captions.json
+**/__pycache__/**
+.DS_Store
+.ipynb_checkpoints

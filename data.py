@@ -1,11 +1,25 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[13]:
 
 
 # import sys
 # !{sys.executable} -m pip install --user Html2Image
+
+
+# In[1]:
+
+
+import os
+import json
+import imgkit
+import base64
+import shutil
+import logging
+from IPython.core.display import display, HTML
+from html2image import Html2Image
+from bs4 import BeautifulSoup
 
 
 # In[2]:
@@ -13,21 +27,10 @@
 
 FILE_DIR = './dataset'
 DATA_DIR = './collected_data'
+logging.basicConfig(filename=f"{DATA_DIR}/log.log", level=logging.INFO, filemode='w')
 
 
 # In[3]:
-
-
-import os
-import json
-import imgkit
-import base64
-from IPython.core.display import display, HTML
-from html2image import Html2Image
-from bs4 import BeautifulSoup
-
-
-# In[4]:
 
 
 def get_files():
@@ -35,7 +38,7 @@ def get_files():
     return os.listdir(path)
 
 
-# In[5]:
+# In[4]:
 
 
 def get_json(file_name):
@@ -45,7 +48,7 @@ def get_json(file_name):
         return json.load(file)
 
 
-# In[6]:
+# In[5]:
 
 
 def get_alt(json_):
@@ -55,7 +58,7 @@ def get_alt(json_):
     return alt
 
 
-# In[7]:
+# In[6]:
 
 
 def get_img_html(img_):
@@ -71,33 +74,58 @@ def save_pic(html_, name, path = f"{DATA_DIR}/images/"):
     hti.screenshot(html_str=html_, save_as=name)
 
 
-# In[8]:
+# In[7]:
 
 
 def validateJSON(path):
     return path.endswith(".json")
 
+def remove_all_files(mydir):
+    for f in os.listdir(mydir):
+        os.remove(os.path.join(mydir, f))
 
-# In[9]:
+
+# In[8]:
 
 
 def go(dir_=FILE_DIR):
     files = get_files()
     captions = {}
+    image_dir = f"./{DATA_DIR}/images"
     
-    for file, ind in zip(get_files(), range(1, len(files)+1)):
-        print(f"{ind}: {file} {validateJSON(file)}")
-        
+    if os.path.exists(image_dir):
+        remove_all_files(image_dir)
+    
+    for file, ind in zip(get_files(), range(1, len(files)+1)):        
         if validateJSON(file):
-            name_ = f'image{ind}'
-            json_ = get_json(file)
-            html_ = get_img_html(json_['graphic'])
-            txt = get_alt(json_)
+            try:
+                name_ = f'image{ind}.jpg'
+                json_ = get_json(file)
+                html_ = get_img_html(json_['graphic'])
+                txt = get_alt(json_)
+
+                if len(txt) > 5:
+                    captions[name_] = txt
+                    save_pic(html_, name_)
+                else:
+                    logging.info(f"skipped {ind}: {file} no alt txt")
+                    print(f"skipped {ind}: {file} no alt txt")
+            except Exception as e:
+                logging.info(f"skipped {ind}: {file} ERROR {str(e)}")
+                print(f"skipped {ind}: {file} ERROR {str(e)}")
             
-            if len(txt) > 5:
-                captions[name_] = txt
-                save_pic(html_, name_+".jpg")
+        else:
+            logging.info(f"skipped {ind}: {file} not json")
+            print(f"skipped {ind}: {file} not json")
     
     with open(f"{DATA_DIR}/captions.json", "w") as outfile:
         json.dump(captions, outfile)
+        
+    logging.shutdown()
+
+
+# In[ ]:
+
+
+
 

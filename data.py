@@ -33,16 +33,17 @@ logging.basicConfig(filename=f"{DATA_DIR}/log.log", level=logging.INFO, filemode
 # In[3]:
 
 
-def get_files():
-    path = os.path.abspath(FILE_DIR)
+def get_files(file_path=FILE_DIR):
+    path = os.path.abspath(file_path)
+    print(path)
     return os.listdir(path)
 
 
 # In[4]:
 
 
-def get_json(file_name):
-    file_path = os.path.abspath(FILE_DIR+"/"+file_name)
+def get_json(file_path, file_name):
+    file_path = os.path.abspath(file_path+"/"+file_name)
     
     with open(file_path, "r") as file:
         return json.load(file)
@@ -88,25 +89,28 @@ def remove_all_files(mydir):
 # In[8]:
 
 
-def go(dir_=FILE_DIR):
-    files = get_files()
+def go(file_path=FILE_DIR, save_dir=DATA_DIR):
+    
+    files = get_files(file_path)
     captions = {}
-    image_dir = f"./{DATA_DIR}/images"
+    image_dir = f"./{save_dir}/images"
     
     if os.path.exists(image_dir):
         remove_all_files(image_dir)
     
-    for file, ind in zip(get_files(), range(1, len(files)+1)):        
+    print(files)
+    for file, ind in zip((files), range(1, len(files)+1)):        
         if validateJSON(file):
             try:
-                name_ = f'image{ind}.jpg'
-                json_ = get_json(file)
+                print(file)
+                name_ = f'image{ind}'
+                json_ = get_json(file_path, file)
                 html_ = get_img_html(json_['graphic'])
                 txt = get_alt(json_)
 
                 if len(txt) > 5:
                     captions[name_] = txt
-                    save_pic(html_, name_)
+                    save_pic(html_, name_+'.jpg')
                 else:
                     logging.info(f"skipped {ind}: {file} no alt txt")
                     print(f"skipped {ind}: {file} no alt txt")
@@ -118,13 +122,14 @@ def go(dir_=FILE_DIR):
             logging.info(f"skipped {ind}: {file} not json")
             print(f"skipped {ind}: {file} not json")
     
-    with open(f"{DATA_DIR}/captions.json", "w") as outfile:
+    with open(f"{save_dir}/captions.json", "w") as outfile:
         json.dump(captions, outfile)
         
     logging.shutdown()
 
 
 # In[ ]:
+
 
 
 

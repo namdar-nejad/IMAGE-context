@@ -33,13 +33,6 @@ OUTPUT_DIR = './collected_data'  # dir holding the image and context should be s
 # In[4]:
 
 
-# logger
-logging.basicConfig(filename=f"{OUTPUT_DIR}/log.log", level=logging.INFO, filemode='w')
-
-
-# In[5]:
-
-
 """
 Function to get all the files in a given dir
 :my_dir: the dir to check
@@ -49,7 +42,7 @@ def get_files(my_dir = RAW_DIR):
     return os.listdir(path)
 
 
-# In[6]:
+# In[5]:
 
 
 """
@@ -64,7 +57,7 @@ def get_json(file_name, my_dir = RAW_DIR):
         return json.load(file)
 
 
-# In[7]:
+# In[6]:
 
 
 """
@@ -78,7 +71,7 @@ def get_alt(my_json):
     return alt
 
 
-# In[8]:
+# In[7]:
 
 
 """
@@ -109,7 +102,7 @@ def save_pic(my_html, name, out_dir = OUTPUT_DIR):
     hti.screenshot(html_str=my_html, save_as=name)
 
 
-# In[9]:
+# In[8]:
 
 
 """
@@ -128,7 +121,7 @@ def remove_all_files(mydir):
         os.remove(os.path.join(mydir, f))
 
 
-# In[10]:
+# In[9]:
 
 
 def go(raw_dir=RAW_DIR, output_dir=OUTPUT_DIR):
@@ -136,6 +129,9 @@ def go(raw_dir=RAW_DIR, output_dir=OUTPUT_DIR):
     files = get_files(raw_dir)
     captions = {}
     image_dir = f"./{output_dir}/images"
+    
+    # logger
+    logging.basicConfig(filename=f"{output_dir}/log.log", level=logging.INFO, filemode='w')
     
     if os.path.exists(image_dir):
         remove_all_files(image_dir)

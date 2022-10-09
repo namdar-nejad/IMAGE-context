@@ -1,4 +1,10 @@
-Script to extract image and alt text from the raw data generated from the IMAGE plugin.
+
+This project is for the research that I'm doing at the McGill Shared Reality Lab.
+At this point the code here is being use by me to extract the alt text and images from the json files created by the McGill IMAGE chrome plugin.
+
+## Runnning the script
+
+Use the run.py script to extract image and alt text from the raw data generated from the IMAGE plugin.
 
 Steps:
 1. Collect the raw data.
@@ -7,6 +13,7 @@ Steps:
 2. run `python3 run.py raw_data_paht out_put_path`. If you don't add the `raw_data` or `out_put_path` options, it will default to `./dataset` and `./collected_data` respectively.
 
 3. The script will populate the `out_put_path\images` directory with the images and `out_put_path\captions.json` with the alt text of the images.
+
 
 ### suggested steps
 ```
@@ -19,7 +26,7 @@ python run.py ./all_data/Wiki/ ./results/wiki
 ```
 
 
-### Dataset
+## Dataset
 The dataset.zip folder contains 3 directories.
 ```
 dataset

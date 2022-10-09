@@ -15,7 +15,7 @@ Steps:
 3. The script will populate the `out_put_path/images` directory with the images and `out_put_path/captions.json` with the alt text of the images.
 
 
-### suggested steps
+### To extract data:
 ```
 git clone https://github.com/namdar-nejad/IMAGE-context
 cd IMAGE-context/
@@ -25,6 +25,18 @@ python run.py ./all_data/Blogs/ ./results/blogs
 python run.py ./all_data/Wiki/ ./results/wiki
 ```
 
+### To run the clipscore script:
+
+```
+git clone https://github.com/namdar-nejad/clipscore
+```
+
+```
+cd ./clipscore
+python clipscore.py  --save_per_instance ../IMAGE-context/results/wiki/scroes.json ../IMAGE-context/results/wiki/captions.json ../IMAGE-context/results/wiki/images/
+python clipscore.py  --save_per_instance ../IMAGE-context/results/blogs/scroes.json ../IMAGE-context/results/blogs/captions.json ../IMAGE-context/results/blogs/images/
+python clipscore.py  --save_per_instance ../IMAGE-context/results/news/scroes.json ../IMAGE-context/results/news/captions.json ../IMAGE-context/results/news/images/
+```
 
 ## Dataset
 The dataset.zip folder contains 3 directories.

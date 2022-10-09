@@ -33,9 +33,9 @@ git clone https://github.com/namdar-nejad/clipscore
 
 ```
 cd ./clipscore
-python clipscore.py  --save_per_instance ../IMAGE-context/results/wiki/scroes.json ../IMAGE-context/results/wiki/captions.json ../IMAGE-context/results/wiki/images/
-python clipscore.py  --save_per_instance ../IMAGE-context/results/blogs/scroes.json ../IMAGE-context/results/blogs/captions.json ../IMAGE-context/results/blogs/images/
-python clipscore.py  --save_per_instance ../IMAGE-context/results/news/scroes.json ../IMAGE-context/results/news/captions.json ../IMAGE-context/results/news/images/
+python clipscore.py  --save_per_instance ../IMAGE-context/results/wiki/scores.json ../IMAGE-context/results/wiki/captions.json ../IMAGE-context/results/wiki/images/
+python clipscore.py  --save_per_instance ../IMAGE-context/results/blogs/scores.json ../IMAGE-context/results/blogs/captions.json ../IMAGE-context/results/blogs/images/
+python clipscore.py  --save_per_instance ../IMAGE-context/results/news/scores.json ../IMAGE-context/results/news/captions.json ../IMAGE-context/results/news/images/
 ```
 
 ## Dataset

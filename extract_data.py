@@ -125,13 +125,15 @@ def remove_all_files(mydir):
 
 def go(raw_dir=RAW_DIR, output_dir=OUTPUT_DIR):
     
-    files = get_files(raw_dir)
-    captions = {}
-    image_dir = f"./{output_dir}/images"
-    
     # logger
     logging.basicConfig(filename=f"{output_dir}/log.log", level=logging.INFO, filemode='w')
     
+    image_dir = f"/{output_dir}/images"  # dir to save the images
+    files = get_files(raw_dir)            # list of raw data files
+    captions = {}                         # dict to store the captions
+    no_alt, error = 0, 0
+    
+    # clear the image dir
     if os.path.exists(image_dir):
         remove_all_files(image_dir)
         
@@ -139,6 +141,7 @@ def go(raw_dir=RAW_DIR, output_dir=OUTPUT_DIR):
     logging.info(f"[LOG] {len(files)} raw data files detected")
     
     for file, ind in zip(files, range(1, len(files)+1)):
+        logging.info(f"[LOG] working on file {ind}: {file}")
         if validateJSON(file):
             try:
                 name_ = f'image{ind}'
@@ -149,12 +152,14 @@ def go(raw_dir=RAW_DIR, output_dir=OUTPUT_DIR):
                 if len(txt) > 2:
                     captions[name_] = txt
                     save_pic(html_, name_+".png", output_dir)
-                    logging.info(f"[COMPLEATED] {ind}: {file} no alt txt")
+                    logging.info(f"[COMPLETED] {ind}: {file} no alt txt")
                     
                 else:
+                    no_alt += 1
                     logging.info(f"[FAILED] {ind}: {file} no alt txt")
                     
             except Exception as e:
+                error += 1
                 logging.info(f"[FAILED] {ind}: {file} ERROR {str(e)}")
         else:
             logging.info(f"[FAILED] {ind}: {file} not a json file")
@@ -162,8 +167,10 @@ def go(raw_dir=RAW_DIR, output_dir=OUTPUT_DIR):
     
     with open(f"{output_dir}/captions.json", "w") as outfile:
         json.dump(captions, outfile)
-        logging.info(f"[LOG] {len(captions.keys())} results created")
-        
+    
+    logging.info(f"total: {len(files)}")
+    logging.info(f"completed: {len(captions)}")
+    logging.info(f"no_alt: {no_alt}")
+    logging.info(f"error: {error}")
+    
     logging.shutdown()
-
-

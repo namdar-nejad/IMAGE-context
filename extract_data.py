@@ -123,7 +123,6 @@ def remove_all_files(mydir):
 
 # In[9]:
 
-
 def go(raw_dir=RAW_DIR, output_dir=OUTPUT_DIR):
     
     files = get_files(raw_dir)
@@ -135,8 +134,11 @@ def go(raw_dir=RAW_DIR, output_dir=OUTPUT_DIR):
     
     if os.path.exists(image_dir):
         remove_all_files(image_dir)
+        
+    logging.info(f"[LOG] data_dir = {image_dir}, out_put_dir = {output_dir}")
+    logging.info(f"[LOG] {len(files)} raw data files detected")
     
-    for file, ind in zip(get_files(raw_dir), range(1, len(files)+1)):
+    for file, ind in zip(files, range(1, len(files)+1)):
         if validateJSON(file):
             try:
                 name_ = f'image{ind}.jpg'
@@ -144,17 +146,23 @@ def go(raw_dir=RAW_DIR, output_dir=OUTPUT_DIR):
                 html_ = get_img_html(json_['graphic'])
                 txt = get_alt(json_)
                 
-                if len(txt) > 5:
+                if len(txt) > 2:
                     captions[name_] = txt
                     save_pic(html_, name_, output_dir)
+                    logging.info(f"[COMPLEATED] {ind}: {file} no alt txt")
+                    
                 else:
-                    logging.info(f"skipped {ind}: {file} no alt txt")
+                    logging.info(f"[FAILED] {ind}: {file} no alt txt")
+                    
             except Exception as e:
-                logging.info(f"skipped {ind}: {file} ERROR {str(e)}")
+                logging.info(f"[FAILED] {ind}: {file} ERROR {str(e)}")
         else:
-            logging.info(f"skipped {ind}: {file} not json")
+            logging.info(f"[FAILED] {ind}: {file} not a json file")
+    
     
     with open(f"{output_dir}/captions.json", "w") as outfile:
         json.dump(captions, outfile)
+        logging.info(f"[LOG] {len(captions)} results created")
         
     logging.shutdown()
+

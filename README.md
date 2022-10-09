@@ -12,7 +12,7 @@ Steps:
     b. Use the sample data by unziping `all_data.zip`
 2. run `python3 run.py raw_data_paht out_put_path`. If you don't add the `raw_data` or `out_put_path` options, it will default to `./dataset` and `./collected_data` respectively.
 
-3. The script will populate the `out_put_path\images` directory with the images and `out_put_path/captions.json` with the alt text of the images.
+3. The script will populate the `out_put_path/images` directory with the images and `out_put_path/captions.json` with the alt text of the images.
 
 
 ### suggested steps

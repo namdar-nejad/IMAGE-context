@@ -17,3 +17,37 @@ python run.py ./all_data/News/ ./results/news
 python run.py ./all_data/Blogs/ ./results/blogs
 python run.py ./all_data/Wiki/ ./results/wiki
 ```
+
+
+### Dataset
+The dataset.zip folder contains 3 directories.
+```
+dataset
+└───Wiki
+└───Blogs
+└───News
+```
+Each directory contains about 80 json files collected from using the IMAGE chrome extention from 'wiki', 'news', and 'blog' sources respectivly.
+
+#### Wiki:
+The wiki data have been collected from some of the most popular [Fully Protected Wikipedia](https://en.wikipedia.org/wiki/User:West.andrew.g/Popular_pages) Pages.
+Some pages that I have used include:
+* https://en.wikipedia.org/wiki/Coronavirus
+* https://en.wikipedia.org/wiki/Wikipedia
+* https://en.wikipedia.org/wiki/United_States
+* https://en.wikipedia.org/wiki/Coca-Cola
+* https://en.wikipedia.org/wiki/Canada
+* https://en.wikipedia.org/wiki/Chicago
+* https://en.wikipedia.org/wiki/Climate_change
+
+#### Blog:
+For the blog data, I chose a few blogs from the higest ranked blogs on [rankedblogs.com](https://www.rankedblogs.com). A few of them include:
+* https://streetartnyc.org/
+* https://www.gopetfriendly.com/blog/
+* https://www.10adventures.com/blog/
+* https://plantsarethestrangestpeople.blogspot.com/
+* https://www.sidestreetstyle.com/
+* https://www.katheats.com/
+
+#### News:
+The news data was collected from [yahoo news](https://www.yahoo.ca).

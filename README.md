@@ -38,6 +38,13 @@ python clipscore.py  --save_per_instance ../IMAGE-context/results/blogs/scores.j
 python clipscore.py  --save_per_instance ../IMAGE-context/results/news/scores.json ../IMAGE-context/results/news/captions.json ../IMAGE-context/results/news/images/
 ```
 
+### To run analysis on the results:
+```
+python analysis.py ./results/wiki/scores.json ./results/blogs/scores.json ./results/news/scores.json
+```
+
+
+
 ## Dataset
 The dataset.zip folder contains 3 directories.
 ```

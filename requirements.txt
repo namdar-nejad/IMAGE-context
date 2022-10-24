@@ -2,3 +2,5 @@ bs4
 imgkit
 IPython
 html2image
+nltk
+

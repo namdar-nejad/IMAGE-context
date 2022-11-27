@@ -1,5 +1,9 @@
 from extract_data import *
+from os.path import dirname, abspath
 import sys
+
+output_dir = dirname(dirname(abspath(__file__)))+'/collected_data'
+image_path = dirname(dirname(abspath(__file__)))+'/collected_data/images'
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:

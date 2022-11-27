@@ -79,7 +79,7 @@ Creates the image from the image data
 :my_image: image data extracted from the raw data json
 """
 def get_img_html(my_image):
-    return f"<html> <body> <img src=\"{my_image}\"> </body> </html>"
+    return f"<html> <body> <img src=\'{my_image}\'> </body> </html>"
 
 """
 Given a html image, it dispalys the image

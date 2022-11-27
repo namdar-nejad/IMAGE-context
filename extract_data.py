@@ -87,20 +87,20 @@ Given a html image, it dispalys the image
 """
 def display_img(my_html):
     display(HTML(my_html))
-    
+
 """
 Save a html contaning an image to a given location
 :my_html: the html to save
 :name: name of the to save
 :out_dir: directory to save the image to
 """
-def save_pic(my_html, name, out_dir = OUTPUT_DIR):
-    path = f"{out_dir}/images/"
-    hti = Html2Image()
-    path_ = os.path.abspath(path)
-    hti._output_path = path_
-    hti.screenshot(html_str=my_html, save_as=name)
+def save_image(my_html, name, out_dir):
 
+    path_ = os.path.abspath(f"{out_dir}")
+    image_b64 = my_html.split(",")[1]
+    binary = base64.b64decode(image_b64)
+    with open(f"{path_}/{name}.png", "wb") as file:
+        file.write(binary)
 
 # In[8]:
 
@@ -151,7 +151,7 @@ def go(raw_dir=RAW_DIR, output_dir=OUTPUT_DIR):
                 
                 if len(txt) > 2:
                     captions[name_] = txt
-                    save_pic(html_, name_+".png", output_dir)
+                    save_image(html_, name_+".png", output_dir)
                     logging.info(f"[COMPLETED] {ind}: {file} no alt txt")
                     
                 else:

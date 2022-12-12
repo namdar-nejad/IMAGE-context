@@ -1,6 +1,7 @@
 
 This project is for the research that I'm doing at the McGill Shared Reality Lab.
-At this point the code here is being use by me to extract the alt text and images from the json files created by the McGill IMAGE chrome plugin.
+The `data-extraction` folder can be used to extract the alt text and images from the json files created by the McGill IMAGE chrome plugin.
+The folder also includes a data set collected from the plugin from 3 recourses, naimly Wiipedia, Yahoo News, and a set of popular Blogs. The `analyze.py` may be sued to do some simple statistical analysis on the clipscores created by the `run.py`.
 
 ## Runnning the script
 
